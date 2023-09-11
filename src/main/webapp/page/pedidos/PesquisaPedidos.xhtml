@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/template/layoutPadrao.xhtml">
+	
+	<f:metadata>
+		<o:viewAction action="#{pedidoBean.carregarTodos()}"/>
+	</f:metadata>
+	
+	<ui:define name="titulo">Novo Produto</ui:define>
+	 
+	<ui:define name="corpo">
+	
+		<h:form id="frmPesquisaPedidos">
+	
+				<h3>Pesquisa de Pedidos</h3>
+
+			<p:messages closable="true">
+				<p:autoUpdate/>
+			</p:messages>
+
+			<p:toolbar styleClass="st-toolbar">
+					
+					<p:toolbarGroup>
+						<p:commandButton value="Pesquisar" action="#{pedidoBean.pesquisarPedido}" update="pedidosTable" />
+					</p:toolbarGroup>
+					
+					<p:toolbarGroup align="right">
+						<p:button value="Novo Pedido" outcome="/page/pedidos/CadastroPedido"  />
+					</p:toolbarGroup>
+					
+				</p:toolbar>
+		
+				<p:panelGrid columns="2" id="painel" style="margin-top: 20px; width: 100%" columnClasses="rotulo, campo">
+					<p:outputLabel value="Pedido" />
+					<h:panelGroup>
+						<p:inputNumber value="#{pedidoBean.pesquisaPedidoDto.pedidoIdInicial}" size="10" maxlength="20" maxValue="9999999999" thousandSeparator="" decimalPlaces="0"/> 
+						a
+						<p:inputNumber value="#{pedidoBean.pesquisaPedidoDto.pedidoIdFinal}" size="10" maxlength="20" maxValue="9999999999" thousandSeparator="" decimalPlaces="0"/> 
+					</h:panelGroup>
+		
+					<p:outputLabel  value="Data do Pedido" />
+					<h:panelGroup>
+						<p:calendar value="#{pedidoBean.pesquisaPedidoDto.dataInicial}" size="10" pattern="dd/MM/yyyy"/>
+						a
+						<p:calendar value="#{pedidoBean.pesquisaPedidoDto.dataFinal}" size="10" pattern="dd/MM/yyyy"/>
+					</h:panelGroup>
+					
+					<p:outputLabel value="Vendedor"/>
+					<p:inputText value="#{pedidoBean.pesquisaPedidoDto.nomeVendedor}" size="40"/>
+					
+					<p:outputLabel value="Cliente"/>
+					<p:inputText value="#{pedidoBean.pesquisaPedidoDto.nomeCliente}" size="40"/>
+					
+					<p:outputLabel value="Status"/>
+					<p:selectManyCheckbox value="#{pedidoBean.pesquisaPedidoDto.statusPedido}" columns="3">
+						<f:selectItems value="#{pedidoBean.statusPedidoLista}" var="status" itemValue="#{status}" itemLabel="#{status.descricao}"/>
+					</p:selectManyCheckbox>
+					
+				</p:panelGrid>
+		
+				<p:dataTable id="pedidosTable" value="#{pedidoBean.listaPedidos}" var="pedido" style="margin-top: 20px" 
+					emptyMessage="Nenhum pedido encontrado." rows="8" paginator="true" paginatorAlwaysVisible="false"
+					paginatorPosition="bottom"  >
+					
+					<p:column headerText="Pedido" style="text-align: center; width: 100px" sortBy="#{pedido.id}">
+						<p:outputLabel value="#{pedido.id}"/>
+					</p:column>
+					
+					<p:column headerText="Cliente">
+						<p:outputLabel value="#{pedido.cliente.nome}"/>
+					</p:column>
+					
+					<p:column headerText="Vendedor" style="width: 400px" >
+						<p:outputLabel value="#{pedido.vendedor.nome}"/>
+					</p:column>
+					
+					<p:column headerText="Status" style="width: 140px; text-align: center;" >
+						<p:outputLabel value="#{pedido.status.descricao}" 
+							styleClass="#{pedido.status eq 'Orcamento' ?
+							  'statusOrcamento': pedido.status eq 'Emitido' ?
+							  'statusEmitido' : 'statusCancelado'}" />
+					</p:column>
+					
+					<p:column headerText="Data do Pedido" style="text-align: center; width: 140px">
+						<p:outputLabel value="#{pedido.dataCriacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</p:outputLabel>
+					</p:column>
+					
+					<p:column headerText="Valor Total" style="text-align: right; width: 120px">
+						<p:outputLabel value="#{pedido.valorTotal}">
+							<f:convertNumber type="currency"/>
+						</p:outputLabel>
+					</p:column>
+					
+					<p:column headerText="Opções" style="width: 100px; text-align:center">
+						<p:button icon="pi pi-pencil" title="Editar" outcome="/page/pedidos/CadastroPedido">
+							<f:param name="pedido" value="#{pedido.id}"/>
+						</p:button>
+					</p:column>
+				
+				</p:dataTable>
+			
+			</h:form>
+				 
+	</ui:define>    
+	
+</ui:composition>	

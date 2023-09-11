@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/template/layoutPadrao.xhtml" >
+	
+	<f:metadata>
+		<o:viewAction action="#{produtoBean.carregarTodos()}"/>
+	</f:metadata>
+	
+	<ui:define name="titulo">Novo Produto</ui:define>
+	 
+	<ui:define name="corpo">
+	
+		<h:form  id="frmPesquisaProdutos">
+		
+			<h3>Pesquisa de Produtos</h3>
+		
+			<p:messages closable="true">
+				<p:autoUpdate/>
+			</p:messages>
+			
+			<p:toolbar styleClass="st-toolbar">
+				
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar"  action="#{produtoBean.pesquisarProduto}" update="produtosTable" />
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/page/produtos/CadastroProduto" />
+				</p:toolbarGroup>
+				
+			</p:toolbar>
+	
+			<p:panelGrid columns="2" id="painel" style="margin-top: 20px; width: 100%" columnClasses="rotulo, campo">
+				<p:outputLabel value="SKU" for="sku" />
+				<p:inputText id="sku" value="#{produtoBean.pesquisaProdutoDto.sku}" size="20" maxlength="20" />
+	
+				<p:outputLabel for="nome" value="Nome" />
+				<p:inputText id="nome" value="#{produtoBean.pesquisaProdutoDto.nome}" size="60" maxlength="80" />
+			</p:panelGrid>
+	
+	
+			<p:dataTable id="produtosTable" value="#{produtoBean.listaProdutos}" var="produto" style="margin-top: 20px" 
+				emptyMessage="Nenhum produto encontrado." rows="20" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom">
+				
+				<p:column headerText="SKU" style="text-align: center; width: 100px">
+					<p:outputLabel value="#{produto.sku}"/>
+				</p:column>
+				
+				<p:column headerText="Nome">
+					<p:outputLabel value="#{produto.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Categoria" style="width: 250px">
+					<p:outputLabel value="#{produto.categoria.categoriaPai.descricao} - #{produto.categoria.descricao}"/>
+				</p:column>
+				
+				<p:column headerText="Valor Unitário" style="text-align: right; width: 160px">
+					<p:outputLabel value="#{produto.valorUnitario}">
+						<f:convertNumber type="currency"/>
+					</p:outputLabel>
+				</p:column>
+				
+				<p:column headerText="Estoque" style="text-align: center; width: 100px">
+					<p:outputLabel value="#{produto.quantidadeEstoque}"/>
+				</p:column>
+				
+				<p:column headerText="Opções" style="width: 100px; text-align:center">
+					<p:button icon="pi pi-pencil" title="Editar" outcome="/page/produtos/CadastroProduto">
+						<f:param name="produto" value="#{produto.id}" />
+					</p:button>
+					
+					<p:commandButton icon="pi pi-trash" title="Excluir" action="#{produtoBean.remover}" update="@all">
+						<p:confirm header="Exclusão de produto"  message="Tem certeza que deseja excluir o produto #{produto.sku} ?" icon="pi pi-exclamation-triangle"/>
+						<f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produtoSelecionado}" />
+					 </p:commandButton>
+				</p:column>
+			
+			</p:dataTable>
+			 
+			 <p:confirmDialog global="true"  hideEffect="fade" showEffect="fade" responsive="true" width="400">
+			 	  <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+	            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+			 </p:confirmDialog>
+			 
+		 </h:form>
+		 
+	</ui:define>    
+	
+</ui:composition>	

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+	<persistence-unit name="sathsoftPU">
+
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>com.sathsoft.model.Categoria</class>
+		<class>com.sathsoft.model.Cliente</class>
+		<class>com.sathsoft.model.Endereco</class>
+		<class>com.sathsoft.model.EnderecoEntrega</class>
+		<class>com.sathsoft.model.Grupo</class>
+		<class>com.sathsoft.model.Pedido</class>
+		<class>com.sathsoft.model.PedidoItem</class>
+		<class>com.sathsoft.model.Produto</class>
+		<class>com.sathsoft.model.Usuario</class>
+
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/sathsoft"/>
+			<property name="javax.persistence.jdbc.user" value="dbamaster" />
+			<property name="javax.persistence.jdbc.password" value="admin" />
+
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+
+</persistence>

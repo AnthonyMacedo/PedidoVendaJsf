@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Login</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	
+	<h:outputStylesheet library="sathsoft" name="/css/estilo.css"/>
+	
+	<h:outputStylesheet library="sathsoft" name="/css/sistema.css"/>
+	
+<!-- 	<h:outputStylesheet library="bootstrap" name="/css/bootstrap.css"/> -->
+</h:head>
+
+	<style>
+		body {
+			color: #333333;
+	 		background-color: #f2f2f2 !important; 
+		}
+	</style>
+
+<h:body >
+		
+		<f:metadata>
+    		<f:viewParam name="dummy" />
+    		<f:event listener="#{loginBean.preRender}" type="preRenderView" />
+    	</f:metadata>
+		
+		<div id="login-dialog">
+		
+		<h1 style="margin-left: 120px">SathSoft</h1>
+		
+			<h:form id="frm" prependId="false">
+			
+				<div class="grid-login">
+					
+					<p:outputLabel value="Identificação de Usuário" style="margin-left: 60px;"/>
+					
+					<p:separator style="margin: 20px 0;"/>
+					
+					<p:messages id="messages" closable="true">
+						<p:autoUpdate />
+					</p:messages>
+
+					<p:inputText id="j_username" placeholder="Usuário" required="true"
+						autocomplete="false" requiredMessage="Informe o usuário."
+						size="33" value="#{loginBean.email}" />
+
+					<p:password id="j_password" placeholder="Senha" required="true" style="margin-top:10px"
+						size="33" requiredMessage="Informe a senha." />
+					
+					<p:commandButton value="Entrar" action="#{loginBean.login}" style="margin:10px 37px; width: 15em !important" ajax="false"/>
+				</div>			
+						
+			</h:form>
+		</div>
+		
+</h:body>
+</html>

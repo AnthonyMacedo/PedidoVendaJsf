@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Dashboard</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	
+	<h:outputStylesheet library="sathsoft" name="/css/estilo.css"/>
+	
+	<h:outputStylesheet library="sathsoft" name="/css/sistema.css"/>
+	
+	<h:outputStylesheet library="bootstrap" name="/css/bootstrap.css"/>
+	
+	<h:outputStylesheet library="adminLte" name="/css/adminlte.css"/>
+	
+	<h:outputScript library="sathsoft" name="/js/jquery.maskMoney.js"/>
+</h:head>
+
+	<h:body>
+
+	<p:ajaxStatus styleClass="ajax-status" onsuccess="configurarMoeda()">
+		<f:facet name="start">
+<!-- 			<p:graphicImage alt="XX" library="sathsoft" name="/images/carregando.gif" /> -->
+				<i class="pi pi-spin pi-spinner loading-icon" aria-hidden="true"></i>
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+
+		<header>
+			<div style="float: left">
+				<h:link outcome="/home.xhtml">
+					<p:graphicImage alt="Logo" styleClass="logo-img"  library="sathsoft" name="/images/logo.png"/>
+				</h:link>
+			</div>
+			
+			<div style="float: right; margin-right: 110px">
+			
+				<span style="float:left; height: 30px; line-height: 3-px; margin-right: 60px">
+					Olá #{security.nomeUsuario}!
+				</span>
+			
+				<h:form style="display: inline-block">
+					<p:menubar styleClass="menu-sistema">
+						<p:submenu label="Cadastros">
+							<p:menuitem value="Clientes" />
+							<p:menuitem value="Usuários"/>
+							
+							<p:divider />
+							
+							<p:menuitem value="Categorias"/>
+							<p:menuitem  value="Produtos" outcome="/page/produtos/PesquisaProdutos"/>
+						</p:submenu>
+						
+						<p:submenu label="Pedidos">
+							<p:menuitem value="Novo pedido" outcome="/page/pedidos/CadastroPedido" />
+							<p:menuitem value="Pesquisa" outcome="/page/pedidos/PesquisaPedidos" />
+						</p:submenu>
+						<p:menuitem value="Sair" url="/sathsoft/j_spring_security_logout"/>
+					</p:menubar>
+				</h:form>	
+			</div>
+			<div style="clear: both"></div>
+			
+		</header>
+		
+			
+		<div id="conteudo">
+				<ui:insert name="corpo"/>
+		</div>	
+		
+		<p:separator style="margin-bottom: 0"/>
+		
+		<footer>
+			SathSofth - 2023	
+		</footer>
+
+		<script>
+			function configurarMoeda() {
+				$(".moeda").maskMoney({ decimal: ",", thousands: ".", allowZero: true})
+			}
+			
+			$(document).ready(function(){
+				configurarMoeda();
+			});
+		</script>		
+		
+	</h:body>
+</html>

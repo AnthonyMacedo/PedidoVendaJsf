@@ -1,0 +1,95 @@
+/* LOGIN */
+.sc-inputLogin.ui-panelgrid .ui-panelgrid-cell {
+	background: none !important;
+	padding: 0.5rem !important;
+}
+
+/* */
+.rotulo {
+	width: 150px;
+}
+
+.ui-panelgrid td {
+	height: 45px !important;
+}
+
+.ajax-status {
+	position: fixed;
+	top: 60px;
+	right: 10px;
+	width: 40px;
+	height: 40px;
+}
+
+.st-toolbar {
+	padding: 10px !important;
+	margin-top: 20px !important;
+}
+
+.st-produto-table input {
+	width: 100%;
+}
+
+/* TabView */
+.ui-tabs .ui-tabs-panel {
+	padding: 0.5em 0.2em !important;
+}
+
+.ui-tabs {
+	padding: 0 !important;
+}
+
+.ui-tabs .ui-tabs-nav {
+	margin: -1px !important;
+}
+
+.ui-tabs .ui-tabs-top>.ui-tabs-nav {
+	padding: 0 !important;
+} 
+/* fim TabView*/
+
+/* STATE DISABLED */
+.ui-state-disabled {
+	opacity: .65 !important;
+}
+
+/* Menu Sistema */
+.menu-sistema {
+    border: 0px !important;
+    padding: 0px !important;
+    background: none !important;
+}
+
+.menu-sistema .ui-menu-parent > a .ui-menuitem-text, .menu-sistema > .ui-menu-list > .ui-menuitem > a > .ui-menuitem-text {
+    color: #ffffff !important;
+}
+
+.menu-sistema .ui-icon-triangle-1-s {
+    background: url(#{request.contextPath}/resources/sathsoft/images/seta-para-baixo.png");
+} 
+/* Menu sistema fim */
+
+/* STATUS PEDIDO */
+
+.statusOrcamento {
+	border-radius: 4px;
+	background-color: #aed7ff;
+	color: #0000ff;
+	padding: 3px;
+}
+
+.statusEmitido{
+	border-radius: 4px;
+	background-color: #9FF781;
+	color: #088A08;
+	padding: 3px;
+}
+
+.statusCancelado {
+	border-radius: 4px;
+	background-color: #ffaeae;
+	color: #df0000;
+	padding: 3px;
+}
+
+/* STATUS PEDIDO FIM*/

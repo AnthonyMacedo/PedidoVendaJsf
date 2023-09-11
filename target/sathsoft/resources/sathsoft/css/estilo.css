@@ -1,0 +1,56 @@
+body {
+	margin: 0;
+	font-size: 14px !important;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	color: #333333;
+ 	background-color: #ffffff !important; 
+}
+
+header {
+	padding: 5px 0px;
+	margin-bottom: 20px;
+	height: 50px;
+	
+	background-color: #545454;
+	color: #fff;
+}
+
+header > div {
+	margin-left: 10px;
+}
+
+
+footer {
+	padding: 0 10px;
+	margin-bottom: 10px
+}
+
+#conteudo {
+	padding: 0 10px;
+}
+
+.logo {
+	width: 150px;
+}
+
+.logo-img {
+	width: 80px;
+}
+
+#login-dialog {
+	margin-top: 150px !important;
+	margin: auto;
+	width: 310px;
+}
+
+.grid-login {
+	width: 310px;
+	background-color: #fff !important; 
+	border-radius: 4px;
+	border: 1px solid  #ccc;
+	margin-top: 10px;
+	padding:15px 20px;
+	
+}
+

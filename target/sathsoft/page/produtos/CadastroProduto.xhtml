@@ -1,0 +1,76 @@
+<ui:composition template="/WEB-INF/template/layoutPadrao.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+	
+	<f:metadata>
+		<o:viewParam name="produto" value="#{produtoBean.produto}"/>
+		<o:viewAction action="#{produtoBean.inicializar}"/>
+	</f:metadata>
+	
+	<ui:define name="titulo">Novo Produto</ui:define>
+	 
+	<ui:define name="corpo">
+		
+		<h:form id="frmCadastroProduto">
+		
+			<h3>Novo Produto</h3>
+			
+			<p:messages closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			
+			<p:toolbar styleClass="st-toolbar" >
+	
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/page/produtos/CadastroProduto"/>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{produtoBean.salvar}" update="frmCadastroProduto"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar" outcome="/page/produtos/PesquisaProdutos" />
+				</p:toolbarGroup>
+				
+			</p:toolbar>	
+			
+			<p:panelGrid columns="2" id="painel" style="margin-top: 20px; width: 100%" columnClasses="rotulo, campo">
+			
+				<p:outputLabel for="sku" value="SKU"/>
+				<p:inputText id="sku" size="20" maxlength="20"  value="#{produtoBean.produto.sku}"/>
+				
+				<p:outputLabel for="nome" value="Nome"/>
+				<p:inputText id="nome" size="60" maxlength="80" value="#{produtoBean.produto.nome}" />
+				
+				<p:outputLabel for="categoria" value="Categoria"/>
+				<p:selectOneMenu id="categoria" value="#{produtoBean.categoriaPai}" >
+					<f:selectItem itemLabel="Selecione a categoria"/>
+					<f:selectItems value="#{produtoBean.categoriasRaizes}" var="categoria"
+		    				itemValue="#{categoria}" itemLabel="#{categoria.descricao}"/>
+					
+					<p:ajax listener="#{produtoBean.carregarSubCategorias}" update="subCategoria"/>	 
+				</p:selectOneMenu>
+				
+				<p:outputLabel for="subCategoria" value="Subcategoria" />
+				<p:selectOneMenu id="subCategoria" value="#{produtoBean.produto.categoria}" >
+					<f:selectItem itemLabel="Selecione a subcategoria"/>
+					<f:selectItems value="#{produtoBean.subCategorias}" var="subCategorias"
+						 itemLabel="#{subCategorias.descricao}" itemValue="#{subCategorias}"/>
+				</p:selectOneMenu>
+				
+				<p:outputLabel for="valorUnit" value="Valor Unitário"/>
+				<p:inputNumber id="valorUnit" value="#{produtoBean.produto.valorUnitario}" decimalSeparator=","/>
+				
+				<p:outputLabel for="estoque" value="Estoque"/>
+				<p:inputNumber id="estoque"  value="#{produtoBean.produto.quantidadeEstoque}"/>
+				
+			</p:panelGrid>
+		
+		</h:form>
+		
+	</ui:define>    
+	
+</ui:composition>	
